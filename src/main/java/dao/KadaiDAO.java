@@ -62,7 +62,7 @@ public class KadaiDAO extends KadaiConn implements Serializable{
 			if(keyword == null || keyword == "") {
 				keyword = "";
 			}
-			sql = "select * from gakusei_master where Name like ? or Furigana like ? or Student_ID = ? limit ? , ?";
+			sql = "select * from gakusei_master where (Name like ? or Furigana like ? or Student_ID = ?) and Status = 0  limit ? , ?";
 			pst = con.prepareStatement(sql);
 			int baseRow = (page - 1) * MAXROW;
 			pst.setString(1,"%" + keyword + "%");
@@ -103,7 +103,7 @@ public class KadaiDAO extends KadaiConn implements Serializable{
 			b.setName(rs.getString("Name"));
 			b.setFurigana(rs.getString("Furigana"));
 			b.setBirth(rs.getString("Birth"));
-			b.setPostNumber(rs.getInt("PostNumber"));
+			b.setPostNumber(rs.getString("PostNumber"));
 			b.setAddress(rs.getString("Address"));
 			b.setTellNumber(rs.getString("TellNumber"));
 			if(rs.getString("Mail") != null) {
@@ -113,7 +113,7 @@ public class KadaiDAO extends KadaiConn implements Serializable{
 			}
 			b.setParentName(rs.getString("Parent_Name"));
 			b.setParentFurigana(rs.getString("Parent_Furigana"));
-			b.setParentPostNumber(rs.getInt("Parent_PostNumber"));
+			b.setParentPostNumber(rs.getString("Parent_PostNumber"));
 			b.setParentAddress(rs.getString("Parent_Address"));
 			b.setParentTellNumber(rs.getString("Parent_TellNumber"));
 			if(rs.getString("Mail") != null) {
@@ -123,7 +123,6 @@ public class KadaiDAO extends KadaiConn implements Serializable{
 			}
 		} catch(Exception e) {
 			e.printStackTrace();
-			data = null;
 		}
 		return data;
 	}
@@ -145,7 +144,7 @@ public class KadaiDAO extends KadaiConn implements Serializable{
 			b.setName(rs.getString("Name"));
 			b.setFurigana(rs.getString("Furigana"));
 			b.setBirth(rs.getString("Birth"));
-			b.setPostNumber(rs.getInt("PostNumber"));
+			b.setPostNumber(rs.getString("PostNumber"));
 			b.setAddress(rs.getString("Address"));
 			b.setTellNumber(rs.getString("TellNumber"));
 			if(rs.getString("Mail") != null) {
@@ -155,7 +154,7 @@ public class KadaiDAO extends KadaiConn implements Serializable{
 			}
 			b.setParentName(rs.getString("Parent_Name"));
 			b.setParentFurigana(rs.getString("Parent_Furigana"));
-			b.setParentPostNumber(rs.getInt("Parent_PostNumber"));
+			b.setParentPostNumber(rs.getString("Parent_PostNumber"));
 			b.setParentAddress(rs.getString("Parent_Address"));
 			b.setParentTellNumber(rs.getString("Parent_TellNumber"));
 			if(rs.getString("Mail") != null) {
@@ -197,24 +196,105 @@ public class KadaiDAO extends KadaiConn implements Serializable{
 			pst.setString(3, bean.getName());
 			pst.setString(4, bean.getFurigana());
 			pst.setString(5, bean.getBirth());
-			pst.setInt(6, bean.getPostNumber());
+			pst.setString(6, bean.getPostNumber());
 			pst.setString(7, bean.getAddress());
 			pst.setString(8, bean.getTellNumber());
 			pst.setString(9, bean.getMail());
 			pst.setString(10, bean.getParentName());
 			pst.setString(11, bean.getParentFurigana());
-			pst.setInt(12, bean.getParentPostNumber());
+			pst.setString(12, bean.getParentPostNumber());
 			pst.setString(13, bean.getParentAddress());
 			pst.setString(14, bean.getParentTellNumber());
 			pst.setString(15, bean.getParentMail());
 			pst.setInt(16, bean.getId());
-			
-			System.out.println(pst);
 			result = pst.executeUpdate();
 		} catch(Exception e) {
 			e.printStackTrace();
 			result = 0;
 		}
 		return result;
+	}
+	
+	//----追加メソッド
+	public int insertData(KadaiDataBean bean) {
+		int result = -1;
+		try {
+			sql = "insert into gakusei_master values(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
+			pst = con.prepareStatement(sql);
+			pst.setInt(1, bean.getId());
+			pst.setInt(2, bean.getStatus());
+			pst.setString(3, bean.getStatusEnterDate());
+			pst.setString(4, bean.getName());
+			pst.setString(5, bean.getFurigana());
+			pst.setString(6, bean.getBirth());
+			pst.setString(7, bean.getPostNumber());
+			pst.setString(8, bean.getAddress());
+			pst.setString(9, bean.getTellNumber());
+			pst.setString(10, bean.getMail());
+			pst.setString(11, bean.getParentName());
+			pst.setString(12, bean.getParentFurigana());
+			pst.setString(13, bean.getParentPostNumber());
+			pst.setString(14, bean.getParentAddress());
+			pst.setString(15, bean.getParentTellNumber());
+			pst.setString(16, bean.getParentMail());
+			result = pst.executeUpdate();
+		} catch(Exception e) {
+			e.printStackTrace();
+			result = 0;
+		}
+		return result;
+	}
+	
+	//----全学生
+	public List<KadaiDataBean> getAllStudent(int page) {
+		List<KadaiDataBean> data = new ArrayList<KadaiDataBean>();
+		try {
+			sql = "select * from gakusei_master limit ? , ?";
+			pst = con.prepareStatement(sql);
+			int baseRow = (page - 1) * MAXROW;
+			pst.setInt(1, baseRow);
+			pst.setInt(2, MAXROW);
+			rs = pst.executeQuery();
+			while(rs.next()) {
+				int id = rs.getInt("Student_ID");
+				String name = rs.getString("Name");
+				String furigana = rs.getString("Furigana");
+				KadaiDataBean b = new KadaiDataBean();
+				b.setId(id);
+				b.setName(name);
+				b.setFurigana(furigana);
+				data.add(b);
+			}
+		} catch(Exception e) {
+			e.printStackTrace();
+		}
+		return data;
+	}
+	
+	//----休学中
+	public List<KadaiDataBean> getSelectStudent(int i, int page) {
+		List<KadaiDataBean> data = new ArrayList<KadaiDataBean>();
+		try {
+			sql = "select * from gakusei_master where Status = ? limit ? , ?";
+			pst = con.prepareStatement(sql);
+			int baseRow = (page - 1) * MAXROW;
+			pst.setInt(1, i);
+			pst.setInt(2, baseRow);
+			pst.setInt(3, MAXROW);
+			rs = pst.executeQuery(); 
+			while(rs.next()) {
+				int id = rs.getInt("Student_ID");
+				String name = rs.getString("Name");
+				String furigana = rs.getString("Furigana");
+				KadaiDataBean b = new KadaiDataBean();
+				b.setId(id);
+				b.setName(name);
+				b.setFurigana(furigana);
+				data.add(b);
+			}
+		} catch(Exception e) {
+			e.printStackTrace();
+		}
+		return data;
 	}
 }

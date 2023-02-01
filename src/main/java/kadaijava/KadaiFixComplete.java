@@ -8,17 +8,17 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-@WebServlet("/insert")
-public class KadaiInsert extends HttpServlet {
+
+@WebServlet("/fixComplete")
+public class KadaiFixComplete extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
-    public KadaiInsert() {
+    public KadaiFixComplete() {
         super();
     }
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		request.setCharacterEncoding("utf-8");
-		
-		request.getRequestDispatcher("kadaiInsert.jsp").forward(request, response);
+		request.getRequestDispatcher("kadaiFixComplete.jsp").forward(request, response);
 	}
+
 }

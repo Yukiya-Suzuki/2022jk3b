@@ -41,7 +41,7 @@ public class KadaiDetail extends HttpServlet {
 			kadaiSession.setAttribute("S_detailData", list);
 			request.getRequestDispatcher("kadaiDetailDisplay.jsp").forward(request, response);
 		} catch(Exception e) {
-			e.printStackTrace();
+			response.sendRedirect("displayAll");
 		}
 	}
 }

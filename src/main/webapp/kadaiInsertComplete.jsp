@@ -4,11 +4,11 @@
 <html>
 	<head>
 		<meta charset="UTF-8">
-		<title>修正完了</title>
+		<title>Insert title here</title>
 		<META http-equiv="Refresh" content="5;URL=displayAll">
 	</head>
 	<body>
-		<h2>正常に修正されました。</h2>
+		<h2>登録が完了しました。</h2>
 		<h2>5秒後に戻ります。</h2>
 	</body>
 </html>

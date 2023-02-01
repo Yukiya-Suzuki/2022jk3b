@@ -46,6 +46,16 @@
 				<button type="submit" name="submit" value="search">検索</button>
 			</form>
 			
+			<form class="option" method="get" action="select">
+				<input type="radio" name="option" value="5">全学生
+				<input type="radio" name="option" value="0">在学
+				<input type="radio" name="option" value="1">休学
+				<input type="radio" name="option" value="2">退学
+				<input type="radio" name="option" value="3">除籍
+				<button type="submit" name="submit" value="option">絞り込み</button>
+			</form>
+			
+			
 			<form class="formarea" method="get" action="select">
 				<table>
 					<tr>
@@ -134,5 +144,7 @@
 				</div>
 			</form>
 		</main>
+		<script>
+		</script>
 	</body>
 </html>

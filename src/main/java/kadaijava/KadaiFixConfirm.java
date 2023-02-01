@@ -100,7 +100,7 @@ public class KadaiFixConfirm extends HttpServlet {
 			if(strPost.isEmpty()) {
 				errList.add("郵便番号が未設定になっています。");
 			} else {
-				changedBean.setPostNumber(post);
+				changedBean.setPostNumber(strPost);
 			}
 		} catch(Exception e) {
 			errList.add("郵便番号は7桁の数値で入力してください。");
@@ -153,7 +153,7 @@ public class KadaiFixConfirm extends HttpServlet {
 			if(strPPost.isEmpty()) {
 				errList.add("保護者郵便番号が未設定になっています。");
 			} else {
-				changedBean.setParentPostNumber(ppost);
+				changedBean.setParentPostNumber(strPPost);
 			}
 		} catch(Exception e) {
 			errList.add("郵便番号は7桁の数値で入力してください。");
@@ -183,8 +183,8 @@ public class KadaiFixConfirm extends HttpServlet {
 		changedBean.setParentMail(strPEmail);
 		
 		if(errList.size() != 0) {
-			request.setAttribute("errList", errList);
-			request.getRequestDispatcher("error.jsp").forward(request, response);
+			request.setAttribute("FixErrList", errList);
+			request.getRequestDispatcher("kadaiFix.jsp").forward(request, response);
 		} else {
 			request.setAttribute("detailData", detailData);
 			kadaiSession.setAttribute("changedBean", changedBean);

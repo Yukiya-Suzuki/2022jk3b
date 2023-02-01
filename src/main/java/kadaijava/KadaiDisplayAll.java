@@ -23,6 +23,7 @@ public class KadaiDisplayAll extends HttpServlet {
     
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("utf-8");
+		String stroption = (String)request.getAttribute("option");
 		String strPage = (String) request.getParameter("page");
 		String keyword;
 		
@@ -43,9 +44,19 @@ public class KadaiDisplayAll extends HttpServlet {
 			}
 		}
 		
+		
 		List<KadaiDataBean> list = new ArrayList<KadaiDataBean>();
 		KadaiDAO dao = new KadaiDAO();
-		list = dao.getAllData(page,keyword);
+		if(stroption != null) {
+			if(Integer.parseInt(stroption) == 5) {
+				list = dao.getAllStudent(page);
+			} else if(stroption != null) {
+				int option = Integer.parseInt(stroption);
+				list = dao.getSelectStudent(option, page);
+			}
+		} else {
+			list = dao.getAllData(page,keyword);
+		}
 		
 		request.setAttribute("data", list);
 		request.setAttribute("page", page);

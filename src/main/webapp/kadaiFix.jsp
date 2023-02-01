@@ -34,6 +34,9 @@
 				padding: 10px;
 				color: #99999;
 			}
+			p {
+				color : red;
+			}
 		</style>
 		<title>編集</title>
 	</head>
@@ -45,10 +48,20 @@
 		<form class="formarea" method="get" action="select">
 				<%
 				HttpSession kadaiSession = request.getSession();
+				List<String> errList = (List<String>)request.getAttribute("fixErrList");
 				List<KadaiDataBean> detailData = (ArrayList)kadaiSession.getAttribute("S_detailData");
 				for(KadaiDataBean bean : detailData) {
 					int id = bean.getId();
 					kadaiSession.setAttribute("id", id);
+				%>
+				<%
+				if(errList != null && errList.size() != 0) {
+					for(String err : errList) {
+				%>
+				<p><%= err %><br></p>
+				<%				
+					}
+				}
 				%>
 				<table>
 						<tr><th>学籍番号</th>
@@ -101,8 +114,8 @@
 						 	<td><input type="email" name="changed_pemail" value="<%= PMail %>"></td></tr>
 				</table>
 				<div class="buttonarea">
-					<button type="button" onclick="history.back()">戻る</button>
-					<button type="button" onclick="window.location.reload(true)">リセット</button>
+					<a onclick="history.back()">戻る</a>
+					<a onclick="window.location.reload(true)">リセット</a>
 					<button type="submit" name="submit" value="fixConfirm">修正</button>
 				</div>
 				<% } %>

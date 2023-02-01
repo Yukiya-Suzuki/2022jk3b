@@ -14,25 +14,34 @@ import javax.servlet.http.HttpSession;
 import bean.KadaiDataBean;
 import dao.KadaiDAO;
 
-@WebServlet("/fixEnter")
-public class KadaiFixEnter extends HttpServlet {
+@WebServlet("/insertEnter")
+public class KadaiInsertEnter extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
-    public KadaiFixEnter() {
+    public KadaiInsertEnter() {
         super();
     }
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HttpSession kadaiSession = request.getSession();
 		KadaiDAO dao = new KadaiDAO();
-		KadaiDataBean changedBean = (KadaiDataBean)kadaiSession.getAttribute("changedBean");
 		List<String> errList = new ArrayList<String>();
-		
-		int result = dao.fixData(changedBean);
-		if(result == 1) {
-			request.getRequestDispatcher("fixComplete").forward(request, response);
+		KadaiDataBean newBean = (KadaiDataBean)kadaiSession.getAttribute("newBean");
+		Integer id = newBean.getId();
+		String strId = id.toString();
+		KadaiDataBean bean = dao.getOneRec(strId);
+		if(bean == null) {
+			int result = dao.insertData(newBean);
+			if(result == 0) {
+				errList.add("登録に失敗しました。");
+				request.setAttribute("errList", errList);
+				request.getRequestDispatcher("error.jsp").forward(request, response);
+			} else {
+				request.getRequestDispatcher("insertComplete").forward(request, response);
+			}
 		} else {
-			errList.add("修正に失敗しました。");
+			errList.add("学籍番号が重複しています。");
+			errList.add("重複している学籍番号：”" + newBean.getId() + "”");
 			request.setAttribute("errList", errList);
 			request.getRequestDispatcher("error.jsp").forward(request, response);
 		}

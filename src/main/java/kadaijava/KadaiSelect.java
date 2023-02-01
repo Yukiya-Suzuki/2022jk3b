@@ -34,7 +34,7 @@ public class KadaiSelect extends HttpServlet {
 			
 			if(proc != null) {
 				if(proc.equals("insert")) {
-					response.sendRedirect("kadaiInsert.jsp");
+					request.getRequestDispatcher("insert").forward(request, response);
 					return;
 				} else if(proc.equals("detail")) {
 					request.setAttribute("strid", strid);
@@ -82,6 +82,10 @@ public class KadaiSelect extends HttpServlet {
 					request.getRequestDispatcher("fixConfirm").forward(request, response);
 				} else if(proc.equals("fixEnter")) {
 					request.getRequestDispatcher("fixEnter").forward(request, response);
+				} else if(proc.equals("option")) {
+					String stroption = request.getParameter("option");
+					request.setAttribute("option", stroption);
+					request.getRequestDispatcher("displayAll").forward(request, response);
 				}
 			}
 		} catch(Exception e) {
