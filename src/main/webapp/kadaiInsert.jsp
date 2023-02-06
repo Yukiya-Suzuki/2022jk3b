@@ -10,6 +10,58 @@
 		<meta charset="UTF-8">
 		<title>学生を登録</title>
 		<style type="text/css">
+			table{
+ 				border-collapse:separate;
+  				border-spacing: 3px;
+  				width: 40%;
+  				margin-top: 30px;
+			}
+ 
+			table th,table td{
+  				border-radius: 5px;
+ 				text-align: center;
+  				padding: 5px ;
+  				font-size: 20px;
+			}
+ 
+			table th{
+  				background-color: #c79852;
+  				color: white;
+  				border:solid 1px #927141;
+  				font-size: 25px;
+			}
+			font_text {
+   				font-weight:  bolder ;
+    			font-family:  serif;
+			}
+			.yukiya12{
+ 				width:80px;
+				height:50px;
+				margin:5px;
+			}
+			.yukiya13{
+ 				width:80px;
+				height:50px;
+			}
+			.yukiya14{
+ 				width:80px;
+				height:50px;
+			}
+			input{
+				font-size: 25px;
+			}
+			h2{
+            	color: white;
+            	border: 3px dashed #927141;
+            	background-color: #c79852;
+            	box-shadow: 0 0 3px 3px #e4d4bc;
+            	padding: 0.5em 0.8em;
+            	text-align: center
+        	}
+			p {
+				color : red;
+			}
+			
 			.red {
 				color: red;
 			}
@@ -136,9 +188,9 @@
 					<td><input type="email" name="pemail" value="<%= pmail %>" ></td></tr>
 			</table>
 			<div class="buttonarea">
-			<a href="./displayAll">戻る</a>
-			<a onclick="window.location.reload(true)">リセット</a>
-			<button type="submit">追加</button>
+			<button type="button" onclick="location.href='./displayAll'" class="yukiya12" class="button">戻る</buttton>
+			<button type="button" onclick="window.location.reload(true)" class="yukiya13" class="button">リセット</button>
+			<button type="submit" class="yukiya14" class="button">追加</button>
 			</div>
 			</form>
 		</main>

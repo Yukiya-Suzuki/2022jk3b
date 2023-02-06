@@ -9,6 +9,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import bean.KadaiDataBean;
 import dao.KadaiDAO;
@@ -23,7 +24,14 @@ public class KadaiDisplayAll extends HttpServlet {
     
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("utf-8");
+		HttpSession kadaiSession = request.getSession();
 		String stroption = (String)request.getAttribute("option");
+		if(stroption != null) {
+			kadaiSession.setAttribute("option", stroption);
+		} else {
+			stroption = (String)kadaiSession.getAttribute("option");
+		}
+		
 		String strPage = (String) request.getParameter("page");
 		String keyword;
 		List<String> errList = new ArrayList<String>();
@@ -59,7 +67,7 @@ public class KadaiDisplayAll extends HttpServlet {
 				list = dao.getAllData(page,keyword);
 			}
 		
-			request.setAttribute("data", list);
+			kadaiSession.setAttribute("data", list);
 			request.setAttribute("page", page);
 			request.setAttribute("allpage", dao.getMaxPage(keyword));
 			request.setAttribute("keyword", keyword);

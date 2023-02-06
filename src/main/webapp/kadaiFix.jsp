@@ -9,31 +9,53 @@
 	<head>
 		<meta charset="UTF-8">
 		<style type="text/css">
-			table {
-				border-collapse: collapse;
+			table{
+  				border-collapse:separate;
+  				border-spacing: 3px;
+  				width: 40%;
+  				margin-top: 30px;
 			}
-			table, th, td {
-				border: solid 1px #000000;
+ 
+			table th,table td{
+  				border-radius: 5px;
+ 				text-align: center;
+  				padding: 5px ;
+  				font-size: 20px;
 			}
-			th, td {
-				padding: 5px;
+ 
+			table th{
+  				background-color: #c79852;
+  				color: white;
+  				border:solid 1px #927141;
+  				font-size: 25px;
 			}
-			.formarea {
-				margin-left: 30px;
+			font_text {
+    			font-weight:  bolder ;
+    			font-family:  serif;
 			}
-			.buttonarea {
-				margin-top: 20px;
+			.yukiya12{
+ 				width:80px;
+				height:50px;
 			}
-			.linkStyle {
-				display: inline-block;
-				padding: 10px;
-				color: #0000ff;
+			.yukiya13{
+ 				width:80px;
+				height:50px;
 			}
-			.noLinkStyle {
-				display: line-block;
-				padding: 10px;
-				color: #99999;
+			.yukiya14{
+ 				width:80px;
+				height:50px;
 			}
+			input{
+				font-size: 25px;
+			}
+			h2{
+            	color: white;
+            	border: 3px dashed #927141;
+            	background-color: #c79852;
+            	box-shadow: 0 0 3px 3px #e4d4bc;
+            	padding: 0.5em 0.8em;
+            	text-align: center
+        	}
 			p {
 				color : red;
 			}
@@ -114,9 +136,9 @@
 						 	<td><input type="email" name="changed_pemail" value="<%= PMail %>"></td></tr>
 				</table>
 				<div class="buttonarea">
-					<a onclick="history.back()">戻る</a>
-					<a onclick="window.location.reload(true)">リセット</a>
-					<button type="submit" name="submit" value="fixConfirm">修正</button>
+					<button type="button" onclick="history.back()" class="yukiya12" class="button">戻る</button>
+					<button type="button" onclick="window.location.reload(true)" class="yukiya13" class="button">リセット</button>
+					<button type="submit" class="yukiya14" class="button" name="submit" value="fixConfirm">修正</button>
 				</div>
 				<% } %>
 				</form>

@@ -9,6 +9,58 @@
 	<head>
 		<meta charset="UTF-8">
 		<title>追加の確定</title>
+		<style>
+			table{
+  				border-collapse:separate;
+  				border-spacing: 3px;
+  				width: 40%;
+  				margin-top: 30px;
+			}
+ 
+			table th,table td{
+  				border-radius: 5px;
+  				text-align: center;
+  				padding: 5px ;
+  				font-size: 20px;
+			}
+ 
+			table th{
+  				background-color: #c79852;
+	  			color: white;
+	  			border:solid 1px #927141;
+  				font-size: 25px;
+			}
+			font_text {
+    			font-weight:  bolder ;
+    			font-family:  serif;
+			}
+			.yukiya12{
+ 				width:80px;
+				height:50px;
+			}
+			.yukiya13{
+ 				width:80px;
+				height:50px;
+			}
+			.yukiya14{
+ 				width:80px;
+				height:50px;
+			}
+			input{
+				font-size: 25px;
+			}
+			h2{
+            	color: white;
+            	border: 3px dashed #927141;
+            	background-color: #c79852;
+            	box-shadow: 0 0 3px 3px #e4d4bc;
+            	padding: 0.5em 0.8em;
+            	text-align: center
+        	}
+			p {
+				color : red;
+			}
+		</style>
 	</head>
 	<body>
 		<header>
@@ -69,9 +121,9 @@
 					%>
 						 <td><%= PMail %></td></tr>
 				</table>
-				<form method="get" action="insertEnter">
-				<a onclick="history.back()">戻る</a>
-				<button type="submit">確定</button>
+				<form method="get" action="insertEnter" class="buttonarea">
+				<button onclick="history.back()" class="yukiya13" class="button">戻る</button>
+				<button type="submit" class="yukiya13" class="button">確定</button>
 				</form>
 		</main>
 	</body>
