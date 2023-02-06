@@ -13,11 +13,16 @@
 			.red {
 				color: red;
 			}
+			.blue {
+				color: blue;
+			}
 		</style>
 	</head>
 	<body>
 		<header>
 			<h2>登録する学生の情報を入力してください</h2>
+			<p class="blue">郵便番号は７桁で入力してください<br>
+										電話番号は「-」を含めて入力してください</p>
 		</header>
 		<main>
 			<%
