@@ -55,6 +55,12 @@ public class KadaiDAO extends KadaiConn implements Serializable{
 		return allPage;
 	}
 	
+	public int getListPage(List<KadaiDataBean> list) {
+		int count = list.size();
+		int page = count/10 + 1;
+		return page;
+	}
+	
 	//----最初に表示するデータ（ID,名前,ふりがな）
 	public List<KadaiDataBean> getAllData(int page , String keyword) {
 		List<KadaiDataBean> data = new ArrayList<KadaiDataBean>();

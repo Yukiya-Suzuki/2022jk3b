@@ -117,7 +117,7 @@ h2 {
 						keyword = "";
 					}
 					int currentPage = (int)kadaiSession.getAttribute("page");
-					int allPage = (Integer) request.getAttribute("allpage");
+					int allPage = (Integer)kadaiSession.getAttribute("allpage");
 					
 					if(allPage> 0) {
 						//---現在のページの２ページ前を表示の最初とするが、なければ１を最初とする。
