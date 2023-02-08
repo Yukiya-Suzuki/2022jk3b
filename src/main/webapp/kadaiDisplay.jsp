@@ -112,11 +112,11 @@ h2 {
 					%>
 				</table>
 				<%
-					String keyword = (String)request.getAttribute("keyword");
+					String keyword = (String)kadaiSession.getAttribute("keyword");
 					if(keyword == null ) {
 						keyword = "";
 					}
-					int currentPage = (int)request.getAttribute("page");
+					int currentPage = (int)kadaiSession.getAttribute("page");
 					int allPage = (Integer) request.getAttribute("allpage");
 					
 					if(allPage> 0) {

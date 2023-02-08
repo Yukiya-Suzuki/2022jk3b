@@ -32,12 +32,11 @@ public class KadaiDisplayAll extends HttpServlet {
 			stroption = (String)kadaiSession.getAttribute("option");
 		}
 		
-		String strPage = (String) request.getParameter("page");
 		String keyword;
 		List<String> errList = new ArrayList<String>();
 		try {
 			try {
-				keyword = (String) request.getParameter("keyword");
+				keyword = (String) kadaiSession.getAttribute("keyword");
 			} catch(Exception e) {
 				keyword = "";
 			}
@@ -45,13 +44,11 @@ public class KadaiDisplayAll extends HttpServlet {
 				keyword = "";
 			}
 			int page = 1;
-			if (strPage != null) {
 				try {
-					page = Integer.parseInt(strPage);
+					page = (int)kadaiSession.getAttribute("page");
 				} catch (Exception e) {
 					page = 1;
 				}
-			}
 		
 		
 			List<KadaiDataBean> list = new ArrayList<KadaiDataBean>();
@@ -68,12 +65,12 @@ public class KadaiDisplayAll extends HttpServlet {
 			}
 		
 			kadaiSession.setAttribute("data", list);
-			request.setAttribute("page", page);
+			kadaiSession.setAttribute("page", page);
 			request.setAttribute("allpage", dao.getMaxPage(keyword));
-			request.setAttribute("keyword", keyword);
 			request.getRequestDispatcher("kadaiDisplay.jsp").forward(request, response);
 		} catch(Exception e) {
 			errList.add("データベースへの接続に失敗しました。");
+			e.printStackTrace();
 			request.setAttribute("errList",errList);
 			request.getRequestDispatcher("error.jsp").forward(request, response);
 		}
