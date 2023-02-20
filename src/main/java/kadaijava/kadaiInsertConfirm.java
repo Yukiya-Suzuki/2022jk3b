@@ -48,7 +48,7 @@ public class kadaiInsertConfirm extends HttpServlet {
 		String strPEmail = request.getParameter("pemail");
 		
 		//--学籍番号
-		KadaiDataBean bean = dao.getOneRec(strId);
+		List<KadaiDataBean> bean = dao.getOneRec(strId);
 		int id = -1;
 		if(strId == null || strId == "") {
 			errList.add("学籍番号が入力されていません。");
@@ -57,7 +57,6 @@ public class kadaiInsertConfirm extends HttpServlet {
 				id = Integer.parseInt(strId);
 			} catch(Exception e ) {
 				errList.add("学籍番号は数値で入力してください。");
-				newBean.setId(id);
 			}
 			if(bean != null) {
 				errList.add("学籍番号が重複しています。");

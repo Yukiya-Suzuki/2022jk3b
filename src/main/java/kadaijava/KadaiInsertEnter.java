@@ -29,7 +29,7 @@ public class KadaiInsertEnter extends HttpServlet {
 		KadaiDataBean newBean = (KadaiDataBean)kadaiSession.getAttribute("newBean");
 		Integer id = newBean.getId();
 		String strId = id.toString();
-		KadaiDataBean bean = dao.getOneRec(strId);
+		List<KadaiDataBean> bean = dao.getOneRec(strId);
 		if(bean == null) {
 			int result = dao.insertData(newBean);
 			if(result == 0) {

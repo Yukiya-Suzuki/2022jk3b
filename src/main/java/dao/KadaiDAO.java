@@ -27,6 +27,10 @@ public class KadaiDAO extends KadaiConn implements Serializable{
 	
 	//----ページ数カウント
 	public int getMaxPage(String keyword) {		//nullの場合全件表示したい
+		Statement st = null;
+		PreparedStatement pst = null;
+		ResultSet rs = null;
+		
 		if(keyword == null || keyword == "") {
 			keyword = "";
 		}
@@ -63,6 +67,9 @@ public class KadaiDAO extends KadaiConn implements Serializable{
 	
 	//----最初に表示するデータ（ID,名前,ふりがな）
 	public List<KadaiDataBean> getAllData(int page , String keyword) {
+		Statement st = null;
+		PreparedStatement pst = null;
+		ResultSet rs = null;
 		List<KadaiDataBean> data = new ArrayList<KadaiDataBean>();
 		try {
 			if(keyword == null || keyword == "") {
@@ -94,14 +101,17 @@ public class KadaiDAO extends KadaiConn implements Serializable{
 		return data;
 	}
 	
-	public KadaiDataBean getOneRec(String id) {
-		KadaiDataBean data = new KadaiDataBean();
+	public List<KadaiDataBean> getOneRec(String id) {
+		List<KadaiDataBean> data = new ArrayList<KadaiDataBean>();
+		Statement st = null;
+		PreparedStatement pst = null;
+		ResultSet rs = null;
 		try {
-			sql = "select * from gakusei_master where Student_ID =?";
+			sql = "select * from team_b_db.gakusei_master where Student_ID = ?;";
 			pst = con.prepareStatement(sql);
 			pst.setInt(1, Integer.parseInt(id));
 			rs = pst.executeQuery();
-			rs.next();
+			//------ここまではいい
 			KadaiDataBean b = new KadaiDataBean();
 			b.setId(rs.getInt("Student_ID"));
 			b.setStatus(rs.getInt("Status"));
@@ -122,19 +132,23 @@ public class KadaiDAO extends KadaiConn implements Serializable{
 			b.setParentPostNumber(rs.getString("Parent_PostNumber"));
 			b.setParentAddress(rs.getString("Parent_Address"));
 			b.setParentTellNumber(rs.getString("Parent_TellNumber"));
-			if(rs.getString("Mail") != null) {
+			if(rs.getString("Parent_Mail") != null) {
 				b.setParentMail(rs.getString("Parent_Mail"));
 			} else {
 				b.setParentMail("");
 			}
+			data.add(b);
 		} catch(Exception e) {
-			e.printStackTrace();
+			data = null;
 		}
 		return data;
 	}
 	
 	//----詳細表示用のひとりの全データ
 	public List<KadaiDataBean> getDetailData(int comeid) {
+		Statement st = null;
+		PreparedStatement pst = null;
+		ResultSet rs = null;
 		List<KadaiDataBean> data = new ArrayList<KadaiDataBean>();
 		try {
 			sql = "select * from gakusei_master where Student_ID = ?";
@@ -178,6 +192,9 @@ public class KadaiDAO extends KadaiConn implements Serializable{
 	
 	//----修正メソッド
 	public int fixData(KadaiDataBean bean) {
+		Statement st = null;
+		PreparedStatement pst = null;
+		ResultSet rs = null;
 		int result = -1;
 		try {
 			sql = "update gakusei_master set Status = ?, "
@@ -223,6 +240,9 @@ public class KadaiDAO extends KadaiConn implements Serializable{
 	
 	//----追加メソッド
 	public int insertData(KadaiDataBean bean) {
+		Statement st = null;
+		PreparedStatement pst = null;
+		ResultSet rs = null;
 		int result = -1;
 		try {
 			sql = "insert into gakusei_master values(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
@@ -253,6 +273,9 @@ public class KadaiDAO extends KadaiConn implements Serializable{
 	
 	//----全学生
 	public List<KadaiDataBean> getAllStudent(int page) {
+		Statement st = null;
+		PreparedStatement pst = null;
+		ResultSet rs = null;
 		List<KadaiDataBean> data = new ArrayList<KadaiDataBean>();
 		try {
 			sql = "select * from gakusei_master limit ? , ?";
@@ -279,6 +302,9 @@ public class KadaiDAO extends KadaiConn implements Serializable{
 	
 	//----休学中
 	public List<KadaiDataBean> getSelectStudent(int i, int page) {
+		Statement st = null;
+		PreparedStatement pst = null;
+		ResultSet rs = null;
 		List<KadaiDataBean> data = new ArrayList<KadaiDataBean>();
 		try {
 			sql = "select * from gakusei_master where Status = ? limit ? , ?";
